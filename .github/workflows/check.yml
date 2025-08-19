@@ -1,0 +1,20 @@
+---
+name: Check stuff
+
+"on":
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  write:
+    id: var-write
+    run: |
+      echo "var=value" >> $GITHUB_OUTPUT
+
+  read:
+    id: var-read
+    needs: var-write
+    run: |
+      echo "Var value:"
+      echo "${{ steps.var-write.outputs.var }}"
