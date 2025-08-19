@@ -7,14 +7,16 @@ name: Check stuff
       - "*"
 
 jobs:
-  write:
-    id: var-write
-    run: |
-      echo "var=value" >> $GITHUB_OUTPUT
+  mainjob:
+    runs-on: ubuntu:latest
+    steps:
+      - name: write
+        id: var-write
+        run: |
+          echo "var=value" >> $GITHUB_OUTPUT
 
-  read:
-    id: var-read
-    needs: var-write
-    run: |
-      echo "Var value:"
-      echo "${{ steps.var-write.outputs.var }}"
+      - name: read
+        id: var-read
+        run: |
+          echo "Var value:"
+          echo "${{ steps.var-write.outputs.var }}"
